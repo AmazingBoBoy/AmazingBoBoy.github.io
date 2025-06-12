@@ -28,30 +28,37 @@
   <div id="latex-content">Loading LaTeX content...</div>
   <div id="error-message"></div>
   <script>
-    // Replace with your main.tex raw URL
-    const texFileUrl = 'https://raw.githubusercontent.com/AmazingBoBoy/latex-auto-compile/refs/heads/main/main.tex';
+  // Replace with your main.tex raw URL
+  const texFileUrl = 'https://raw.githubusercontent.com/AmazingBoBoy/latex-auto-compile/refs/heads/main/main.tex';
 
-    fetch(texFileUrl)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch main.tex');
-        }
-        return response.text();
-      })
-      .then(data => {
-        const contentDiv = document.getElementById('latex-content');
-        contentDiv.textContent = data; // Set the LaTeX content
-        // Trigger MathJax to re-render the content
+  fetch(texFileUrl)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to fetch main.tex');
+      }
+      return response.text();
+    })
+    .then(data => {
+      const contentDiv = document.getElementById('latex-content');
+      // Extract content between \begin{document} and \end{document}
+      const startIndex = data.indexOf('\\begin{document}') + '\\begin{document}'.length;
+      const endIndex = data.indexOf('\\end{document}');
+      if (startIndex !== -1 && endIndex !== -1 && startIndex < endIndex) {
+        const latexContent = data.substring(startIndex, endIndex).trim();
+        contentDiv.textContent = latexContent;
         MathJax.typesetPromise([contentDiv]).catch(err => {
           console.error('MathJax rendering error:', err);
         });
-      })
-      .catch(error => {
-        const errorDiv = document.getElementById('error-message');
-        errorDiv.textContent = 'Error loading main.tex: ' + error.message;
-        errorDiv.style.display = 'block';
-        document.getElementById('latex-content').textContent = '';
-      });
-  </script>
+      } else {
+        contentDiv.textContent = 'Could not find document content in main.tex';
+      }
+    })
+    .catch(error => {
+      const errorDiv = document.getElementById('error-message');
+      errorDiv.textContent = 'Error loading main.tex: ' + error.message;
+      errorDiv.style.display = 'block';
+      document.getElementById('latex-content').textContent = '';
+    });
+</script>
 </body>
 </html>
