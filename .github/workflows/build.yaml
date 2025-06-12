@@ -13,18 +13,16 @@ jobs:
         with:
           root_file: main.tex
       - name: Create tag
-        id: create_tag
         run: |
-          TAG="v$(date +'%Y%m%d%H%M%S')"
-          echo "TAG=$TAG" >> $GITHUB_ENV
-          git tag $TAG
-          git push origin $TAG
+          TAG="math"
+          git tag -f $TAG
+          git push origin $TAG -f
       - name: Get timestamp
         run: echo "TIMESTAMP=$(date +'%Y-%m-%d %T')" >> $GITHUB_ENV
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
           name: Release ${{ env.TIMESTAMP }}
-          tag_name: ${{ env.TAG }}
+          tag_name: math
           files: main.pdf
           draft: false
