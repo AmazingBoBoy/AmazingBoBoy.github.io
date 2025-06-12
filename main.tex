@@ -1,11 +1,117 @@
 \documentclass{article}
-\begin{document}
-Welcome to my document!
 
-An equation:
-\[
-x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
-\]
-Kevin Huang Loves Math
-Inline math: \( e^{i\pi} + 1 = 0 \).
+
+% This is the key line to make sections numbered simply as 1, 2, 3...
+\renewcommand{\thesection}{\arabic{section}}
+
+% Optional: If you want subsections to be 1.1, 1.2, etc. (relative to the section, not chapter)
+\renewcommand{\thesubsection}{\thesection.\arabic{subsection}}
+
+% --- NEW: For enumerate numbering ---
+% This redefines the first level of enumeration to be SectionNumber.ItemNumber
+\renewcommand{\theenumi}{\textbf{\thesection.\arabic{enumi}}}
+% This ensures the label uses the new numbering format
+\usepackage{enumitem} % Recommended package for list customization
+\setlist[enumerate,1]{label=\theenumi} % Apply the label format to the first level of enumerate
+% --- Preamble: Global Settings and Packages (as discussed previously) ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{bm}
+\usepackage{geometry}
+\usepackage{lipsum}
+\usepackage{tcolorbox}
+\tcbuselibrary{listings,breakable}
+\usepackage{xcolor} % Make sure xcolor is loaded for color definitions
+
+\usepackage{graphicx}
+\graphicspath{{assets/}} % Path to global image assets
+\usepackage{mathrsfs} % Add this line to your preamble for \mathscr support; tlmgr install jknapltx rsfs server-side
+\usepackage{etoolbox}
+\usepackage{lipsum}
+\usepackage{cancel}
+
+\setlength{\marginparwidth}{2cm} %for todonotes
+\usepackage{todonotes}
+
+\usepackage{quiver}
+
+\usepackage[
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    citecolor=green,
+    pdftitle={Algebra: Chapter 0 Solutions},
+    pdfauthor={Your Name},
+    pdfsubject={Mathematics Solutions},
+    pdfkeywords={Math, Solutions, Textbook, LaTeX}
+]{hyperref}
+
+\tcbset{
+  mysolutionbox/.style={
+    coltitle=black,
+    colback=gray!10,
+    colframe=gray!30,
+    boxrule=0.5pt,
+    arc=4pt,
+    left=5pt, right=5pt, top=5pt, bottom=3pt,
+    breakable,
+    title={Solution},
+    fonttitle=\bfseries,
+    % after upper={\par\hfill\qedsymbol\par}, % <-- Removed the square
+    before upper={
+      \setlength{\parskip}{0.3\baselineskip}
+      \setlength{\parindent}{0pt}
+      \setlist{
+        nosep,
+        leftmargin=1.5em,
+        itemsep=0.15pt
+      }
+    },
+    % after={
+    %   \parskip=0pt
+    %   \parindent=0pt
+    %   \parskip=0pt
+    %   \parindent=1em
+    % }
+  }
+}
+
+% Now, the 'solution' environment is much simpler, just invoking tcolorbox
+\newenvironment{solution}{
+  \begin{tcolorbox}[mysolutionbox]
+}{
+  \end{tcolorbox}
+}
+
+
+% Custom theorem/solution environments
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+\usepackage{hyperref}
+\begin{document}
+\section*{Introduction}
+I am a math major at University of Califronia, Berkeley. I love math. 
+\\
+This document is a selction of my beloved mathematcial ideas, techniques and problems. 
+\section{June 2025}
+\begin{enumerate}
+    \item $A$ is a $5 \times 5 $ Matrix. If $A^{10}=0$, prove $A^5=0$
+    \item Nullity of a matrix (geometric multiplicity)  $\leq$ number of zero Eigenvectors (algebraic multiplicity)
+    \begin{solution}
+    \href{https://math.stackexchange.com/a/3241493/1139215}{https://math.stackexchange.com/a/3241493/1139215}
+    \end{solution}
+    \begin{remark}
+        The idea is to construct a similar matrix with an easy characteristic  polynomial.
+    \end{remark}
+    \end{enumerate}
 \end{document}
