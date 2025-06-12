@@ -1,19 +1,30 @@
 name: Build PDF and release
-on: push
+on: [push]
 jobs:
-  build_latex:
+  build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # Required for creating tags and releases
     steps:
-      - uses: actions/checkout@v4
+      - name: Check out code
+        uses: actions/checkout@v4
       - name: Compile LaTeX
         uses: xu-cheng/latex-action@v3
         with:
           root_file: main.tex
+      - name: Create tag
+        id: create_tag
+        run: |
+          TAG="v$(date +'%Y%m%d%H%M%S')"
+          echo "TAG=$TAG" >> $GITHUB_ENV
+          git tag $TAG
+          git push origin $TAG
       - name: Get timestamp
         run: echo "TIMESTAMP=$(date +'%Y-%m-%d %T')" >> $GITHUB_ENV
       - name: Release
         uses: softprops/action-gh-release@v2
         with:
-          name: Draft ${{ env.TIMESTAMP }}
+          name: Release ${{ env.TIMESTAMP }}
+          tag_name: ${{ env.TAG }}
           files: main.pdf
           draft: false
