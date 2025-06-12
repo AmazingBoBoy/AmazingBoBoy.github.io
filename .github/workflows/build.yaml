@@ -16,4 +16,4 @@ jobs:
         with:
           name: Draft ${{ env.TIMESTAMP }}
           files: main.pdf
-          draft: false
+          draft: true
