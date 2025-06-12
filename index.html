@@ -38,7 +38,7 @@
 
     <script>
         // Fetch the raw main.tex content from GitHub
-        fetch('https://github.com/AmazingBoBoy/latex-auto-compile/raw/refs/heads/main/main.tex')
+        fetch('https://raw.githubusercontent.com/AmazingBoBoy/latex-auto-compile/refs/heads/main/main.tex')
             .then(response => {
                 if (!response.ok) throw new Error('Failed to fetch main.tex');
                 return response.text();
