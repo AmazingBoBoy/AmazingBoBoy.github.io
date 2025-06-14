@@ -28,7 +28,7 @@
 \usepackage{tcolorbox}
 \tcbuselibrary{listings,breakable}
 \usepackage{xcolor} % Make sure xcolor is loaded for color definitions
-
+\DeclareMathOperator{\Ima}{Im}
 \usepackage{graphicx}
 \graphicspath{{assets/}} % Path to global image assets
 \usepackage{mathrsfs} % Add this line to your preamble for \mathscr support; tlmgr install jknapltx rsfs server-side
@@ -106,6 +106,18 @@ This document is a selction of my beloved mathematcial ideas, techniques and pro
 \section{June 2025}
 \begin{enumerate}
     \item $A$ is a $5 \times 5 $ Matrix. If $A^{10}=0$, prove $A^5=0$
+    \begin{solution}
+        We prove $\Ima A^5=0$.
+        \\
+        
+        Case 1: If $\dim (\Ima A)=5$, then $\dim (\Ima A^{10})=5$, contradiction. 
+        \\
+        
+        Case 2: If $\dim (\Ima A)\leq 4$. Note that if there exists $n$ such that $\dim (\Ima A^n)=\dim (\Ima A^{n+1})$, then $\dim (\Ima A^m)=\dim (\Ima A^{n})$ for all $m\geq n$. 
+        \\
+        But $\dim (\Ima A^{10})=0$, so $\dim (\Ima A^{n})$ must be strictly decreasing until it reaches to $0$. Thus, $0\le\dim (\Ima A^{5})<\dim (\Ima A^{4})<\cdots <5$. So $\dim (\Ima A^{5})$ must be $0$. 
+    \end{solution}
+    
     \item Nullity of a matrix (geometric multiplicity)  $\leq$ number of zero Eigenvectors (algebraic multiplicity)
     \begin{solution}
     \href{https://math.stackexchange.com/a/3241493/1139215}{https://math.stackexchange.com/a/3241493/1139215}
