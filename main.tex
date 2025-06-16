@@ -131,5 +131,25 @@ This document is a selction of my beloved mathematcial ideas, techniques and pro
     \\
     Key 2: For any $y \in H$, $y=h_1 \cdot h_2 \cdot \cdots \cdot h_k$. $gxg^{-1}=(gh_1g^{-1})(gh_2g^{-1}) \cdots (gh_kg^{-1})$. This is clearly in $H$. Thus, $gHg^{-1}=H$ for all $g \in G$. $H$ is a normal group. 
     \end{solution}
+    \item Let $F=F(A)$ be the free group of $A$. Prove $F/[F,F]\cong F^{ab}(A)$
+    \begin{solution}
+        \[\begin{tikzcd}[column sep=tiny]
+	&& {\text{commutator subgroup of F(A)}:F/[F,F]} \\
+	\\
+	{\text{Free group of A}: F(A)} &&&& G \\
+	\\
+	&& A
+	\arrow["{\exists! \Phi}"', from=1-3, to=3-5]
+	\arrow["{\text{projection}:\pi}"', from=3-1, to=1-3]
+	\arrow["{\exists !\phi}"{description, pos=0.4}, from=3-1, to=3-5]
+	\arrow["{\pi \circ j}"{description, pos=0.3}, from=5-3, to=1-3]
+	\arrow["j"', from=5-3, to=3-1]
+	\arrow["i", hook, from=5-3, to=3-5]
+\end{tikzcd}\]
+    Because initial in category $Ab^{A}$ is unique up to isomorphism, $F/[F,F]\cong F^{ab}(A)$. 
+    \end{solution}
+    \begin{remark}
+        At this point, I realize how powerful category theory really is! This is crazy. 
+    \end{remark}
     \end{enumerate}
 \end{document}
